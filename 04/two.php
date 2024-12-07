@@ -52,12 +52,9 @@ class grid {
         sort($a);
         sort($b);
         
-        if ($a[0] == "M" && $a[1] == "S" &&
-            $b[0] == "M" && $b[1] == "S"){
-            return 1; 
-        }
+        return ($a[0] == "M" && $a[1] == "S" &&
+                $b[0] == "M" && $b[1] == "S");
 
-        return 0;
     }   
 
 }
@@ -68,8 +65,8 @@ $grid = new grid(array_map(function($line){
 
 $found = 0;
 while ($grid->current() != ""){
-    if ($grid->current() == "A"){
-        $found += $grid->lookAround();
+    if ($grid->current() == "A" && $grid->lookAround()){
+        $found++;
     }
     $grid->next();
 }
