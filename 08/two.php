@@ -34,18 +34,6 @@ class cell {
         $x = $this->x;
         $y = $this->y;
         while(true) {
-            $x = $x + $stepX;
-            $y = $y + $stepY;
-
-            if ($x < 0 || $x > $xLimit) break;
-            if ($y < 0 || $y > $yLimit) break;
-
-            $antiNodes[] = [$x, $y];
-        }
-
-        $x = $this->x;
-        $y = $this->y;
-        while(true) {
             $x = $x - $stepX;
             $y = $y - $stepY;
 
