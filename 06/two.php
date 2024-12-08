@@ -11,6 +11,7 @@ class grid {
 
     public $extraX = 0;
     public $extraY = 0;
+    public $extra = [];
 
     public $turns = 0;
     public $d = [
@@ -45,16 +46,12 @@ class grid {
         $this->visited = [];
         $this->turns = 0;
 
-        $this->extraX++;
-        if ($this->extraX >= sizeOf($this->grid[$this->extraY])){
-            $this->extraX = 0;
-            $this->extraY++;
-        }
-        if ($this->extraY >= sizeOf($this->grid)){
-            // non left
-            return false;
-        }
+        $next = array_shift($this->extra);
+        if ($next === null) return false;
+        list($x, $y) = explode(",", $next);
 
+        $this->extraX = $x;
+        $this->extraY = $y;
         return true;
     }
 
@@ -86,10 +83,11 @@ class grid {
         if (isset($this->visited[$key])){
             return true;
         }
-        $this->visited[$key] = true;
 
         $this->x += $this->dx();
         $this->y += $this->dy();
+
+        $this->visited[$key] = "{$this->x},{$this->y}";
 
         return false;
     }
@@ -105,6 +103,22 @@ class grid {
 $grid = new grid(array_map(function($line){
     return str_split(trim($line));
 }, file("input")));
+
+while(true) {
+    if ($grid->next() == "#"){
+        $grid->turn();
+        continue;
+    }
+
+    $grid->step();
+
+    if ($grid->next() == ""){
+        break;
+    }
+}
+
+$grid->extra = array_unique($grid->visited);
+$grid->nextObstacle();
 
 $loops = 0;
 while(true) {
