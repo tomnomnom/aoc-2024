@@ -41,7 +41,9 @@ $stones = array_map(
 
 $acc = 0;
 foreach ($stones as $stone){
-    $acc += blinkSize($stone, 75);
+    //$acc += blinkSize($stone, 75);
 }
 
-echo $acc.PHP_EOL;
+echo blinkSize(2, 10);
+
+//echo $acc.PHP_EOL;
